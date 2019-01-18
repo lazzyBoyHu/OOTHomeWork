@@ -57,4 +57,5 @@ void RaiseRailingEvent::begin(unsigned int uid)
     Employee * emp = EmployeeManager::GetInstance()->GetOnePersonByID(uid);
     if (emp == nullptr)
         flag = NoEmployee;
+
 }

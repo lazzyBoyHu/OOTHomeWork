@@ -62,10 +62,9 @@ class EmployeeManager : Manager<Person>
 {
     private:
         static EmployeeManager * employee_instance;
-        Manager<Employee> * p_manager;
         std::string p_name;
     private:
-        EmployeeManager() : p_name("person manager") {p_manager = new Manager<Employee>();}
+        EmployeeManager() : p_name("person manager") {}
     public:
         static EmployeeManager * GetInstance();
         std::string GetName();

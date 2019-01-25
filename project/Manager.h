@@ -16,10 +16,9 @@ class Manager
         std::map<unsigned int, T*> manager;
 
     public:
-        Manager();
+        Manager() { CleanManager();}
         virtual ~Manager();
-    private:
-        Manager(const Manager<T>&) {}
+        Manager(const Manager<T>&) { CleanManager(); }
         Manager<T>& operator=(const Manager<T>&){}
 
     public:
@@ -28,9 +27,6 @@ class Manager
         T * GetItem(unsigned int id);
     private:
         void CleanManager();
-        std::string GetName();
-        void AddOnePerson();
-        Employee * GetOnePersonByID();
 };
 
 #endif

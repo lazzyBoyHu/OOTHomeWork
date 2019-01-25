@@ -2,6 +2,7 @@
 #define EVENTMANAGER_H_
 
 #include <iostream>
+#include <map>
 
 #include "timer/timer.h"
 
@@ -20,6 +21,7 @@ enum EventErrorum
     NoICCard = -2,
     NoCarPark = -3,
     NoICCardMessage = -4,
+    NoRailing = -5,
 };
 
 // 事件基类
@@ -45,6 +47,14 @@ class Event
          * 用于绑定一下相关的其他操作
          */
         virtual void fire(unsigned int uid);
+        /**
+         * 用于输出出错信息
+         */
+        void checkErrorMessage(int flag, unsigned int uid, unsigned int tempCardId = 0);
+        /**
+         * 检查时间
+         */
+        bool checkFireTime(Time &current);
 };
 
 class ReadCardEvent : public Event
@@ -65,8 +75,35 @@ class RaiseRailingEvent : public Event
         void fire(unsigned int uid);
 };
 
+class DownRailingEvent : public Event
+{
+    public:
+        DownRailingEvent(unsigned int eventType, std::string name, long delayTime) : Event(eventType, name, delayTime) {}
+        ~DownRailingEvent() {}
+        void begin(unsigned int uid);
+        void fire(unsigned int uid);
+};
+
+/*class SenserEvent : public Event
+{
+        SenserEvent(unsigned int eventType, std::string name, long delayTime) : Event(eventType, name, delayTime) {}
+        ~SenserEvent() {}
+        void begin(unsigned int uid);
+        void fire(unsigned int uid);
+};*/
+
 class EventManager
 {
+    private:
+        std::map<unsigned int, Event*> eventMap;
+        static EventManager * instance;
+    private:
+        EventManager();
+    public:
+        void checkFire(Time &current);
+        void addEvent(unsigned int uid, Event * event);
+        void removeEvent(unsigned int uid);
+        static EventManager * GetInstance();
 };
 
 #endif

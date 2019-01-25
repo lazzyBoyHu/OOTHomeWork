@@ -61,10 +61,9 @@ class ICCardManager
 {
     private:
         static ICCardManager * instance;
-        Manager<ICCard> * manager;
         std::string name;
     private:
-        ICCardManager() : name("ic card manager") {manager = new Manager<ICCard>();}
+        ICCardManager() : name("ic card manager") {}
     public:
         static ICCardManager * GetInstance();
         std::string GetName() {return name;}

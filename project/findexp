@@ -1,0 +1,49 @@
+#!/bin/bash
+
+
+findfile()
+{
+	find .  -path "./3Party" -prune -o -iname \*.$1 -type f ! -name \*.pb.h -type f ! -name \*.pb.cc -exec grep -n --color -H $2 \{\} \;
+	#| xargs grep -wn -n --color $2
+	#-exec grep -n --color -H $2 \{\} \;
+}
+#find . -iname \*.[ch] -exec grep -n --color -H $1 \{\} \;
+#find . -iname \*.cpp -exec grep -n --color  -H $1 \{\} \;
+#find . -iname \*.lua -exec grep -n --color  -H $1 \{\} \;
+#find . -iname \*.proto -exec grep -n --color  -H $1 \{\} \;
+echo $3
+case $1 in
+	h)
+		findfile $1 $2
+	;;
+	c)
+		findfile $1 $2
+	;;
+	cpp)
+		findfile $1 $2
+	;;
+	proto)
+		findfile $1 $2
+	;;
+	lua)
+		findfile $1 $2
+	;;
+	am)
+		findfile $1 $2
+	;;
+	py)
+		findfile $1 $2
+	;;
+	xml)
+		findfile $1 $2
+	;;
+
+	*)
+		findfile "h" $1
+		findfile "c" $1
+		findfile "cpp" $1
+		findfile "proto" $1
+		findfile "lua" $1
+##		findfile "xml" $1
+	;;
+esac
